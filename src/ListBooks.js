@@ -6,7 +6,7 @@ class ListBooks extends Component {
 		books: PropTypes.array.isRequired
 	}
 
-	state ={
+	state = {
 		bookshelf: 'currentlyReading'
 	}
 
