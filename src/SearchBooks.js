@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends Component {
@@ -31,8 +31,7 @@ class SearchBooks extends Component {
 		return (
           <div className="search-books">
             <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-
+              <Link to='/' className='close-search'>Close</Link>
               <div className="search-books-input-wrapper">
                 <input 
                 	className='search-books'
@@ -47,7 +46,7 @@ class SearchBooks extends Component {
               <ol className="books-grid">              
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-              		{searchBooks !== undefined && (searchBooks.map((book) => (
+              		{searchBooks && searchBooks !== undefined && (searchBooks.map((book) => (
                     	<li key={book.id} className='book-list-item'>
                         <div className="book">
                           <div className="book-top">
@@ -63,7 +62,7 @@ class SearchBooks extends Component {
                             </div>                               
                           </div>    
                 		  <div className="book-title">{ book.title }</div>
-                		  {book.authors !== undefined && (book.authors.map((author) => (
+                		  {book && book.authors !== undefined && (book.authors.map((author) => (
                 		  	<div key={author} className="book-authors">{ author }</div>
                 		  	)))}
                 		  </div>             		
@@ -75,7 +74,6 @@ class SearchBooks extends Component {
             </div>
           </div>
 	    )
-
 	}
 }
 export default SearchBooks

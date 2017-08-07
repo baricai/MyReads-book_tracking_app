@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+
+import * as BooksAPI from './BooksAPI'
 
 class ListBooks extends Component {
 	static propTypes = {
 		books: PropTypes.array.isRequired
 	}
-
 	state = {
-		bookshelf: 'currentlyReading'
+		onUpdated: false
 	}
-
-	updateBookShelf = (bookshelf) => {
-
+	hangleChange(book, bookshelf) {
+		if (this.props.onUpdateBookShelf) {
+			this.props.onUpdateBookShelf(book, bookshelf)
+			this.setState({onUpdated: true })
+		}
 	}
-
 	render() {
 		const { books } = this.props
+		const { onUpdated } = this.state
 
 		let bookshelfReading = books.filter((book) => book.shelf === 'currentlyReading')
 		let bookshelfWantToRead = books.filter((book) => book.shelf === 'wantToRead')
@@ -38,7 +42,7 @@ class ListBooks extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select value={this.state.updateBook} onChange={(event) => this.hangleChange(book, event.target.value)}>
                                 <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -67,7 +71,7 @@ class ListBooks extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select value={this.state.updateBook} onChange={(event) => this.hangleChange(book, event.target.value)}>
                                 <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -96,7 +100,7 @@ class ListBooks extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select value={this.state.updateBook} onChange={(event) => this.hangleChange(book, event.target.value)}>
                                 <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -117,9 +121,8 @@ class ListBooks extends Component {
                 </div>
               </div>
             </div>
-
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to='/search'>Add a book</Link>
             </div>
           </div>
 	)}
