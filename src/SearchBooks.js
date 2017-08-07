@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+
 import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends Component {
@@ -15,15 +17,22 @@ class SearchBooks extends Component {
 
 	}
 
-    searchingBooks = (query) => {
-      if (query) {
-	      BooksAPI.search(query).then(searchBooks => {
-	      	this.setState({searchBooks: searchBooks})
-	      })      	
-      } else {
-	      this.setState({searchBooks: []})      	
-      }
+  hangleChange(book, bookshelf) {
+    if (this.props.onUpdateBookShelf) {
+      console.log('here')
+      this.props.onUpdateBookShelf(book, bookshelf)
     }
+  }
+
+  searchingBooks = (query) => {
+    if (query) {
+	     BooksAPI.search(query).then(searchBooks => {
+	      this.setState({searchBooks: searchBooks})
+	     })      	
+    } else {
+	     this.setState({searchBooks: []})      	
+    }
+  }
 
 	render() {
 		const { query, searchBooks } = this.state
@@ -46,14 +55,14 @@ class SearchBooks extends Component {
               <ol className="books-grid">              
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-              		{searchBooks && searchBooks !== undefined && (searchBooks.map((book) => (
+              		  {searchBooks && searchBooks !== undefined && (searchBooks.map((book) => (
                     	<li key={book.id} className='book-list-item'>
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select>
-                                <option value="none" disabled>Move to...</option>
+                              <select onChange={(event) => this.hangleChange(book, event.target.value)}>
+                                <option selected="selected" value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>

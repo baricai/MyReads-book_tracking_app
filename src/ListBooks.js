@@ -39,7 +39,7 @@ class ListBooks extends Component {
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
                               <select onChange={(event) => this.hangleChange(book, event.target.value)}>
-                                <option value="none" disabled>Move to...</option>
+                                <option selected="selected" value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
@@ -68,7 +68,7 @@ class ListBooks extends Component {
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
                               <select onChange={(event) => this.hangleChange(book, event.target.value)}>
-                                <option value="none" disabled>Move to...</option>
+                                <option selected="selected" value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
@@ -86,7 +86,7 @@ class ListBooks extends Component {
                     </ol>
                   </div>
                 </div>
-			      <div className="bookshelf">
+			    <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
@@ -97,7 +97,7 @@ class ListBooks extends Component {
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
                               <select onChange={(event) => this.hangleChange(book, event.target.value)}>
-                                <option value="none" disabled>Move to...</option>
+                                <option selected="selected" value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
