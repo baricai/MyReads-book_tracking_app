@@ -14,6 +14,7 @@ class ListBooks extends Component {
 			this.props.onUpdateBookShelf(book, bookshelf)
 		}
 	}
+
 	render() {
 		const { books } = this.props
 
@@ -38,8 +39,8 @@ class ListBooks extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(event) => this.hangleChange(book, event.target.value)}>
-                                <option selected="selected" value="none" disabled>Move to...</option>
+                              <select value={book.shelf} onChange={(event) => this.hangleChange(book, event.target.value)}>
+                                <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
@@ -67,8 +68,8 @@ class ListBooks extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(event) => this.hangleChange(book, event.target.value)}>
-                                <option selected="selected" value="none" disabled>Move to...</option>
+                              <select value={book.shelf} onChange={(event) => this.hangleChange(book, event.target.value)}>
+                                <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
@@ -96,8 +97,8 @@ class ListBooks extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select onChange={(event) => this.hangleChange(book, event.target.value)}>
-                                <option selected="selected" value="none" disabled>Move to...</option>
+                              <select value={book.shelf} onChange={(event) => this.hangleChange(book, event.target.value)}>
+                                <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
@@ -123,4 +124,5 @@ class ListBooks extends Component {
           </div>
 	)}
 }
+
 export default ListBooks

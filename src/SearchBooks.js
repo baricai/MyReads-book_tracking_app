@@ -5,22 +5,32 @@ import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired
+  }
 
 	state = {
 		query: '',
-		searchBooks: []
+    searchBooks: []
 	}
 
 	updateQuery = (query) => {
 		this.setState({query: query.trim()})
 		this.searchingBooks(query)			
-
 	}
 
   hangleChange(book, bookshelf) {
     if (this.props.onUpdateBookShelf) {
-      console.log('here')
       this.props.onUpdateBookShelf(book, bookshelf)
+
+      //for updating move function, return new search 
+      let newSearchBooks = this.state.searchBooks
+      for (let i = 0; i < this.state.searchBooks.length; i++) {
+        if (this.state.searchBooks[i] === book) {
+          newSearchBooks.splice(i, 1)
+          this.setState({searchBooks: newSearchBooks})
+        }
+      }
     }
   }
 
@@ -36,6 +46,7 @@ class SearchBooks extends Component {
 
 	render() {
 		const { query, searchBooks } = this.state
+    const { books } = this.props
 
 		return (
           <div className="search-books">
@@ -55,7 +66,7 @@ class SearchBooks extends Component {
               <ol className="books-grid">              
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-              		  {searchBooks && searchBooks !== undefined && (searchBooks.map((book) => (
+              		  {searchBooks !== undefined && searchBooks && (searchBooks.map((book) => (
                     	<li key={book.id} className='book-list-item'>
                         <div className="book">
                           <div className="book-top">
@@ -85,4 +96,5 @@ class SearchBooks extends Component {
 	    )
 	}
 }
+
 export default SearchBooks
