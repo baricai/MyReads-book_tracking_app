@@ -11,18 +11,18 @@ class ListBooks extends Component {
 		books: PropTypes.array.isRequired
 	}
 
-  state = {
-    bookshelfReading: [],
-    bookshelfWantToRead: [],
-    bookshelfRead:[]
+  hangleChange(book, bookshelf) {
+    if (this.props.onUpdateBookShelf) {
+      this.props.onUpdateBookShelf(book, bookshelf)
+    }
   }
 
 	render() {
 		const { books } = this.props
 
-		this.state.bookshelfReading = books.filter((book) => book.shelf === 'currentlyReading')
-		this.state.bookshelfWantToRead = books.filter((book) => book.shelf === 'wantToRead')
-		this.state.bookshelfRead =  books.filter((book) => book.shelf === 'read')
+		const bookshelfReading = books.filter((book) => book.shelf === 'currentlyReading')
+		const bookshelfWantToRead = books.filter((book) => book.shelf === 'wantToRead')
+		const bookshelfRead =  books.filter((book) => book.shelf === 'read')
 
 		return (
             <div className="list-books">
@@ -34,22 +34,31 @@ class ListBooks extends Component {
                   <div className="bookshelf">
                     <h2 className="bookshelf-title">Currently Reading</h2>
                     <Bookshelf
-                      bookshelf={this.state.bookshelfReading}
+                      booksInBookshelf={bookshelfReading}
                       onUpdateBookShelf={this.props.onUpdateBookShelf}
+                      onHandleChange={(book, bookshelf) => {
+                        this.hangleChange(book, bookshelf)
+                      }}
                     />
                   </div>
                   <div className="bookshelf">
                     <h2 className="bookshelf-title">Want to Read</h2>
                     <Bookshelf
-                      bookshelf={this.state.bookshelfWantToRead}
+                      booksInBookshelf={bookshelfWantToRead}
                       onUpdateBookShelf={this.props.onUpdateBookShelf}
+                      onHandleChange={(book, bookshelf) => {
+                        this.hangleChange(book, bookshelf)
+                      }}
                     />
                   </div>
   			          <div className="bookshelf">
                     <h2 className="bookshelf-title">Read</h2>
                     <Bookshelf
-                      bookshelf={this.state.bookshelfRead}
+                      booksInBookshelf={bookshelfRead}
                       onUpdateBookShelf={this.props.onUpdateBookShelf}
+                      onHandleChange={(book, bookshelf) => {
+                        this.hangleChange(book, bookshelf)
+                      }}
                     />
                   </div>
                 </div>
