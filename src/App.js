@@ -19,12 +19,8 @@ class BooksApp extends React.Component {
 
   updateBookShelf(book, bookshelf) {
     BooksAPI.update(book, bookshelf).then(() => {
-      this.setState(state => ({
-      books: state.books.filter((book) => book.id === book.id)
-    }))
+      this.componentDidMount()
     })
-    this.componentDidMount()
-    console.log('book', book, ':', 'bookshelf', bookshelf)
   }
 
   render() {

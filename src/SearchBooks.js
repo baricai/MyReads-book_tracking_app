@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import * as BooksAPI from './BooksAPI'
+import Bookshelf from './Bookshelf'
 
 class SearchBooks extends Component {
   static propTypes = {
@@ -58,7 +59,10 @@ class SearchBooks extends Component {
 		const { query, searchBooks } = this.state
     const { books } = this.props
 
-    const searchBooksWithoutAdded = searchBooks.filter((searchBook) => this.isAddedBook(searchBook, books))
+    let searchBooksWithoutAdded = []
+    if (searchBooks !== undefined && searchBooks && typeof searchBooks.filter === 'function') {
+      searchBooksWithoutAdded = searchBooks.filter((searchBook) => this.isAddedBook(searchBook, books))      
+    }
 
 		return (
           <div className="search-books">
@@ -76,32 +80,13 @@ class SearchBooks extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">              
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-              		  {searchBooksWithoutAdded !== undefined && searchBooksWithoutAdded && (searchBooksWithoutAdded.map((book) => (
-                    	<li key={book.id} className='book-list-item'>
-                        <div className="book">
-                          <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-                            <div className="book-shelf-changer">
-                              <select value={book.shelf} onChange={(event) => this.hangleChange(book, event.target.value)}>
-                                <option value="none" disabled>Move to...</option>
-                                <option value="currentlyReading">Currently Reading</option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
-                              </select>
-                            </div>                               
-                          </div>    
-                		  <div className="book-title">{ book.title }</div>
-                		  {book.authors !== undefined && book && (book.authors.map((author) => (
-                		  	<div key={author} className="book-authors">{ author }</div>
-                		  	)))}
-                		  </div>             		
-                    	</li>
-                      )) )}
-                    </ol>
-                  </div>
+                <Bookshelf
+                  booksInBookshelf={searchBooksWithoutAdded}
+                  onUpdateBookShelf={this.props.onUpdateBookShelf}
+                  onHandleChange={(book, bookshelf) => {
+                    this.hangleChange(book, bookshelf)
+                  }}
+                />
               </ol>
             </div>
           </div>

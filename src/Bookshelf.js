@@ -4,7 +4,7 @@ const Bookshelf = ({ booksInBookshelf, onHandleChange })=> {
   return (
             <div className="bookshelf-books">
               <ol className="books-grid">
-              {booksInBookshelf.map((book) => (
+              {booksInBookshelf !== undefined && booksInBookshelf && booksInBookshelf.map((book) => (
                 <li key={book.id} className='book-list-item'>
                   <div className="book">
                     <div className="book-top">
@@ -20,7 +20,7 @@ const Bookshelf = ({ booksInBookshelf, onHandleChange })=> {
                       </div>                               
                     </div>    
                 <div className="book-title">{ book.title }</div>
-                {book.authors.map((author) => (
+                {book.authors !== undefined && book.authors && book.authors.map((author) => (
                   <div key={author} className="book-authors">{ author }</div>
                   ))}
                 </div>                
