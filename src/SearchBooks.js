@@ -20,7 +20,7 @@ class SearchBooks extends Component {
 		this.searchingBooks(query)			
 	}
 
-  hangleChange(book, bookshelf) {
+  handleChange(book, bookshelf) {
     if (this.props.onUpdateBookShelf) {
       this.props.onUpdateBookShelf(book, bookshelf)
       let updateSearchBook = this.state.searchBooks
@@ -86,7 +86,7 @@ class SearchBooks extends Component {
                   booksInBookshelf={searchBooks}
                   onUpdateBookShelf={this.props.onUpdateBookShelf}
                   onHandleChange={(book, bookshelf) => {
-                    this.hangleChange(book, bookshelf)
+                    this.handleChange(book, bookshelf)
                   }}
                 />
               </ol>

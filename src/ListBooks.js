@@ -11,7 +11,7 @@ class ListBooks extends Component {
 		books: PropTypes.array.isRequired
 	}
 
-  hangleChange(book, bookshelf) {
+  handleChange(book, bookshelf) {
     if (this.props.onUpdateBookShelf) {
       this.props.onUpdateBookShelf(book, bookshelf)
     }
@@ -37,7 +37,7 @@ class ListBooks extends Component {
                       booksInBookshelf={bookshelfReading}
                       onUpdateBookShelf={this.props.onUpdateBookShelf}
                       onHandleChange={(book, bookshelf) => {
-                        this.hangleChange(book, bookshelf)
+                        this.handleChange(book, bookshelf)
                       }}
                     />
                   </div>
@@ -47,7 +47,7 @@ class ListBooks extends Component {
                       booksInBookshelf={bookshelfWantToRead}
                       onUpdateBookShelf={this.props.onUpdateBookShelf}
                       onHandleChange={(book, bookshelf) => {
-                        this.hangleChange(book, bookshelf)
+                        this.handleChange(book, bookshelf)
                       }}
                     />
                   </div>
@@ -57,7 +57,7 @@ class ListBooks extends Component {
                       booksInBookshelf={bookshelfRead}
                       onUpdateBookShelf={this.props.onUpdateBookShelf}
                       onHandleChange={(book, bookshelf) => {
-                        this.hangleChange(book, bookshelf)
+                        this.handleChange(book, bookshelf)
                       }}
                     />
                   </div>
