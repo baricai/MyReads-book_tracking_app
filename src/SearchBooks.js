@@ -83,7 +83,7 @@ class SearchBooks extends Component {
             <div className="search-books-results">
               <ol className="books-grid">              
                 <Bookshelf
-                  booksInBookshelf={searchBooksWithoutAdded}
+                  booksInBookshelf={searchBooks}
                   onUpdateBookShelf={this.props.onUpdateBookShelf}
                   onHandleChange={(book, bookshelf) => {
                     this.hangleChange(book, bookshelf)
