@@ -15,7 +15,7 @@ const Bookshelf = ({ booksInBookshelf, onHandleChange })=> {
                       <MoveMenu
                         bookInShelf={book}
                         onHandleChange={(book, bookshelf) => {
-                          onHandleChange(book, bookshelf)
+                            onHandleChange(book, bookshelf)
                       }}
                       />                             
                     </div>    
