@@ -23,21 +23,23 @@ class SearchBooks extends Component {
   hangleChange(book, bookshelf) {
     if (this.props.onUpdateBookShelf) {
       this.props.onUpdateBookShelf(book, bookshelf)
-
-      //for updating move function, return new search 
-      let newSearchBooks = this.state.searchBooks
+      let updateSearchBook = this.state.searchBooks
       for (let i = 0; i < this.state.searchBooks.length; i++) {
-        if (this.state.searchBooks[i] === book) {
-          newSearchBooks.splice(i, 1)
-          this.setState({searchBooks: newSearchBooks})
+        if (updateSearchBook[i].id === book.id) {
+          updateSearchBook[i].shelf = bookshelf
         }
       }
+      this.setState({ searhBooks: updateSearchBook })
     }
   }
 
   searchingBooks = (query) => {
     if (query) {
 	     BooksAPI.search(query).then(searchBooks => {
+        for (let i = 0; i < searchBooks.length; i++) {
+          let shelfResult = this.getShelfAddedBook(searchBooks[i], this.props.books)
+          searchBooks[i].shelf = shelfResult
+        }
 	      this.setState({searchBooks: searchBooks})
 	     })
     } else {
@@ -45,14 +47,14 @@ class SearchBooks extends Component {
     }
   }
 
-  isAddedBook(searchBook, books) {
+  getShelfAddedBook(searchBook, books) {
     //function for checking if it is added book or not
     for (let i = 0; i < books.length; i++) {
       if (searchBook.id === books[i].id) {
-        return false
+        return books[i].shelf
       }
     }
-    return true
+    return 'none'
   }
 
 	render() {
@@ -61,7 +63,7 @@ class SearchBooks extends Component {
 
     let searchBooksWithoutAdded = []
     if (searchBooks !== undefined && searchBooks && typeof searchBooks.filter === 'function') {
-      searchBooksWithoutAdded = searchBooks.filter((searchBook) => this.isAddedBook(searchBook, books))      
+      searchBooksWithoutAdded = searchBooks.filter((searchBook) => this.getShelfAddedBook(searchBook, books) !== 'none')      
     }
 
 		return (
